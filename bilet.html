@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CosmicTours | Bilet Özeti</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .bilet-kutusu {
+            width: min(680px, 100%);
+            background: rgba(31, 40, 51, 0.9);
+            border: 1px solid rgba(102, 252, 241, 0.35);
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .bilet-kutusu h2 {
+            color: #66fcf1;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .bilet-ozet {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .bilet-ozet p {
+            margin: 10px 0;
+            font-size: 1.05rem;
+        }
+
+        .bilet-ozet strong {
+            color: #ffffff;
+        }
+
+        .bilet-fiyat {
+            font-size: 1.8rem;
+            color: #66fcf1;
+            font-weight: bold;
+            margin-top: 18px;
+            text-align: center;
+        }
+
+        .geri-link {
+            display: inline-block;
+            margin-top: 22px;
+            color: #66fcf1;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="bilet-kutusu">
+        <h2>Bilet Özeti</h2>
+
+        <div class="bilet-ozet">
+            <p><strong>Tur:</strong> <span id="tur-adi">-</span></p>
+            <p><strong>Bilet Türü:</strong> <span id="bilet-turu">-</span></p>
+            <p><strong>Tarih:</strong> 2026-10-15</p>
+            <p><strong>Sefer:</strong> Gece Yolculuğu</p>
+        </div>
+
+        <div class="bilet-fiyat" id="fiyat">0₺</div>
+
+        <a href="turlar.html" class="geri-link">← Turlara Dön</a>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const tur = params.get('tur') || 'Tur';
+        const tip = params.get('tip') || 'ogrenci';
+        const ucret = params.get('ucret') || '100';
+
+        const fiyatText = document.getElementById('fiyat');
+        const turAdi = document.getElementById('tur-adi');
+        const biletTuru = document.getElementById('bilet-turu');
+
+        turAdi.textContent = tur;
+        biletTuru.textContent = tip === 'sivil' ? 'Sivil' : 'Öğrenci';
+        fiyatText.textContent = `${ucret}₺`;
+    </script>
+</body>
+</html>

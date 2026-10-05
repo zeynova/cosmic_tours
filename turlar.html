@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CosmicTours | Gezegen Turları</title>
+    <link rel="stylesheet" href="style.css"> <!-- Aynı CSS dosyasını bağladık! -->
+</head>
+<body>
+
+    <header>
+        <h1 id="logo">CosmicTours</h1>
+        <nav>
+            <a href="index.html">Merkez Üs</a>
+            <a href="turlar.html" class="aktif-link">Gezegen Turları</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="galeri-kapsayici">
+            
+            <!-- 1. KART -->
+            <article class="gezegen-karti" data-tur="Mars" data-ogrenci="100" data-sivil="250">
+                <img src="gorseller/mars-jpg.jpg" alt="Mars Turu">
+                <div class="kart-icerik">
+                    <h3>Kızıl Gezegen Mars</h3>
+                    <p>Olimpos Dağı'nın eteklerinde kızıl kum fırtınalarını güvenli fanus otellerimizden izleyin.</p>
+                    <p class="fiyat-listesi"><span>Öğrenci: 100₺</span><span>Sivil: 250₺</span></p>
+
+                    <div class="bilet-secimi">
+                        <label><input type="radio" name="tur-mars" value="ogrenci" checked> Öğrenci</label>
+                        <label><input type="radio" name="tur-mars" value="sivil"> Sivil</label>
+                    </div>
+
+                    <button type="button" class="neon-buton bilet-al-btn">Bilet Al</button>
+                </div>
+            </article>
+
+            <!-- 2. KART -->
+            <article class="gezegen-karti" data-tur="Uranüs" data-ogrenci="100" data-sivil="250">
+                <img src="gorseller/uranus-jpg.jpg" alt="Uranüs Turu">
+                <div class="kart-icerik">
+                    <h3>Buz Devi Uranüs</h3>
+                    <p>Soğuk rüzgarların ve mavi gölgelerin arasında sessiz ve hayal dolu bir yörünge yolculuğu.</p>
+                    <p class="fiyat-listesi"><span>Öğrenci: 100₺</span><span>Sivil: 250₺</span></p>
+
+                    <div class="bilet-secimi">
+                        <label><input type="radio" name="tur-uranus" value="ogrenci" checked> Öğrenci</label>
+                        <label><input type="radio" name="tur-uranus" value="sivil"> Sivil</label>
+                    </div>
+
+                    <button type="button" class="neon-buton bilet-al-btn">Bilet Al</button>
+                </div>
+            </article>
+
+            <!-- 3. KART -->
+            <article class="gezegen-karti" data-tur="Satürn" data-ogrenci="100" data-sivil="250">
+                <img src="gorseller/saturn-jpg.jpg" alt="Satürn Turu">
+                <div class="kart-icerik">
+                    <h3>Halkaların Efendisi Satürn</h3>
+                    <p>Buz ve kayadan oluşan efsanevi halkaların arasında romantik bir uzay yürüyüşü.</p>
+                    <p class="fiyat-listesi"><span>Öğrenci: 100₺</span><span>Sivil: 250₺</span></p>
+
+                    <div class="bilet-secimi">
+                        <label><input type="radio" name="tur-saturn" value="ogrenci" checked> Öğrenci</label>
+                        <label><input type="radio" name="tur-saturn" value="sivil"> Sivil</label>
+                    </div>
+
+                    <button type="button" class="neon-buton bilet-al-btn">Bilet Al</button>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <script>
+        document.querySelectorAll('.gezegen-karti').forEach((kart) => {
+            const secim = kart.querySelectorAll('input[type="radio"]');
+            const buton = kart.querySelector('.bilet-al-btn');
+
+            function fiyatHesapla() {
+                const secili = kart.querySelector('input[type="radio"]:checked');
+                const tur = kart.dataset.tur;
+                const tip = secili ? secili.value : 'ogrenci';
+                const ucret = tip === 'sivil' ? Number(kart.dataset.sivil) : Number(kart.dataset.ogrenci);
+                const label = tip === 'sivil' ? 'Sivil' : 'Öğrenci';
+                buton.textContent = `Bilet Al • ${label} ${ucret}₺`;
+                buton.dataset.tur = tur;
+                buton.dataset.tip = tip;
+                buton.dataset.ucret = ucret;
+            }
+
+            secim.forEach((radio) => radio.addEventListener('change', fiyatHesapla));
+            buton.addEventListener('click', () => {
+                const tur = buton.dataset.tur || kart.dataset.tur;
+                const tip = buton.dataset.tip || 'ogrenci';
+                const ucret = buton.dataset.ucret || kart.dataset.ogrenci;
+                const url = `bilet.html?tur=${encodeURIComponent(tur)}&tip=${encodeURIComponent(tip)}&ucret=${encodeURIComponent(ucret)}`;
+                window.open(url, '_blank', 'noopener,noreferrer');
+            });
+
+            fiyatHesapla();
+        });
+    </script>
+
+    <footer>
+        <p>&copy; 2024 CosmicTours A.Ş. Tüm Galaktik Hakları Saklıdır.</p>
+    </footer>
+
+</body>
+</html>
